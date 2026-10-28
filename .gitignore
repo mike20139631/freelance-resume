@@ -1,0 +1,14 @@
+# OS and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*~
+
+# Local secrets and dependencies (if added later)
+.env
+.env.*
+!.env.example
+node_modules/

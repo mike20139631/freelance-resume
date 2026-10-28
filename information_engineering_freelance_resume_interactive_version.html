@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mike Huang | 系統與後端開發工程師 接案履歷與作品集</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#2563eb',
+              600: '#1d4ed8',
+              700: '#1e40af',
+            }
+          },
+          boxShadow: {
+            'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.06)',
+            'glass-dark': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Smooth Slide Transition for Carousel */
+    .carousel-track {
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    .dark ::-webkit-scrollbar-thumb {
+      background: #334155;
+    }
+
+    /* Print & PDF Export Optimization Rules */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 8mm 10mm 8mm 10mm;
+      }
+      
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        animation: none !important;
+        transition: none !important;
+        box-shadow: none !important;
+      }
+
+      body {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        font-size: 9.5pt;
+        line-height: 1.35;
+      }
+
+      .no-print {
+        display: none !important;
+      }
+
+      /* Force Page Breaks for Perfect PDF Layout */
+      .page-break-before {
+        page-break-before: always !important;
+        break-before: page !important;
+      }
+
+      .avoid-break {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      .print-container {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      /* CRITICAL PRINT FIX FOR CAROUSEL: Expand all cards vertically during print */
+      .carousel-container {
+        overflow: visible !important;
+      }
+      .carousel-track {
+        transform: none !important;
+        display: block !important;
+        width: 100% !important;
+      }
+      .carousel-slide {
+        width: 100% !important;
+        margin-bottom: 0.75rem !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+      }
+
+      /* Force light clean look for print regardless of current mode */
+      .bg-slate-900, .bg-slate-950, .bg-slate-800, .dark .bg-slate-900, .dark .bg-slate-950, .dark .bg-slate-800 {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        border-color: #cbd5e1 !important;
+      }
+
+      .bg-slate-800\/50, .bg-slate-800\/60, .bg-slate-900\/80, .bg-slate-100, .bg-slate-50, .dark .bg-slate-900\/50 {
+        background-color: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+      }
+
+      .text-slate-100, .text-slate-200, .text-slate-300, .text-slate-700, .text-slate-800, .text-slate-900 {
+        color: #0f172a !important;
+      }
+
+      .text-slate-400, .text-slate-500, .text-slate-600 {
+        color: #475569 !important;
+      }
+
+      .border-slate-700, .border-slate-800, .border-slate-200, .border-slate-300 {
+        border-color: #cbd5e1 !important;
+      }
+
+      .text-blue-600, .text-blue-500, .text-blue-400, .dark .text-blue-400 {
+        color: #1d4ed8 !important;
+        font-weight: 600;
+      }
+
+      .text-emerald-600, .text-emerald-500, .text-emerald-400, .dark .text-emerald-400 {
+        color: #047857 !important;
+        font-weight: 600;
+      }
+
+      .badge-print {
+        background-color: #f1f5f9 !important;
+        color: #0f172a !important;
+        border: 1px solid #cbd5e1 !important;
+      }
+
+      .card-print {
+        padding: 0.5rem 0.75rem !important;
+        margin-bottom: 0.5rem !important;
+      }
+
+      .header-print {
+        padding-bottom: 0.5rem !important;
+        margin-bottom: 0.6rem !important;
+        border-bottom: 2px solid #2563eb !important;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-slate-100/80 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen antialiased selection:bg-blue-500 selection:text-white pb-16">
+
+  <!-- Floating Navigation & Action Bar -->
+  <div class="no-print fixed top-4 right-4 z-50 flex items-center gap-2 sm:gap-3 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-1.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-lg">
+    <!-- Dark / Light Mode Toggle Button -->
+    <button id="themeToggleBtn" onclick="toggleTheme()" class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-medium px-3.5 py-2 rounded-xl transition-all cursor-pointer text-xs sm:text-sm">
+      <span id="themeIcon">☀️</span>
+      <span id="themeText" class="hidden sm:inline">切換深色</span>
+    </button>
+
+    <!-- Print / Export PDF Button -->
+    <button onclick="window.print()" class="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium px-4 py-2 rounded-xl shadow-md shadow-blue-500/20 transition-all cursor-pointer text-xs sm:text-sm">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+      </svg>
+      <span>🖨️ 列印 / 另存為 PDF</span>
+    </button>
+  </div>
+
+  <!-- Main Document Container -->
+  <main class="print-container max-w-4xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10">
+
+    <!-- HEADER & CONTACT SECTION -->
+    <header class="header-print bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-5 sm:p-6 mb-5 shadow-sm dark:shadow-glass-dark relative overflow-hidden">
+      <!-- Top Decorative Gradient Line -->
+      <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500"></div>
+
+      <div class="flex flex-col md:flex-row md:items-start justify-between gap-4">
+        <div class="w-full">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <div class="flex items-center gap-3">
+              <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                Mike Huang
+              </h1>
+              <span class="text-sm font-semibold text-slate-500 dark:text-slate-400">| 系統與後端開發工程師</span>
+            </div>
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800 dark:bg-emerald-500/10 dark:text-emerald-400 dark:border dark:border-emerald-500/30 badge-print">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 mr-2 animate-pulse no-print"></span>
+              開放接案中 (兼職/遠端)
+            </span>
+          </div>
+
+          <p class="text-blue-600 dark:text-blue-400 font-semibold text-xs sm:text-sm mb-3.5">
+            專精於 API Server 建立、系統自動化、量化金融 API 串接與 Linux 伺服器託管
+          </p>
+
+          <!-- Bullet points Bio -->
+          <ul class="space-y-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 mb-2 list-disc list-inside leading-relaxed">
+            <li><b>5 年 Linux 系統維運</b>與 Web 伺服器管理經驗（熟悉 CentOS、Httpd 部署、SSL 憑證設定、自動化腳本與 P2V 系統遷移）。</li>
+            <li>精通 <b>Python 後端開發與 API Server 建立</b>（Flask / Gunicorn / WebSocket）。</li>
+            <li>具備<b>數據自動化、量化金融 API 串接 (永豐金 Shioaji)</b> 與 實體/雲端系統遷移 (P2V/PaaS) 經驗。</li>
+            <li>能為企業與團隊提供從需求診斷、後端架構設計到穩定部署的一站式解決方案。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact Info Bar -->
+      <div class="mt-4 pt-3.5 border-t border-slate-100 dark:border-slate-800/80 flex flex-wrap items-center gap-4 text-xs sm:text-sm">
+        <div class="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-mono bg-slate-50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-200/60 dark:border-slate-700/50">
+          <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+          <span>mike20179631@gmail.com</span>
+        </div>
+        <div class="flex items-center gap-2 text-slate-700 dark:text-slate-300 font-mono bg-slate-50 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg border border-slate-200/60 dark:border-slate-700/50">
+          <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 8 9 8z"></path></svg>
+          <span>LINE: 官方帳號諮詢 (可先經由 Email 聯繫)</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- SLA & COLLABORATION POLICY -->
+    <section class="avoid-break bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-4 mb-5 card-print shadow-sm">
+      <h2 class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-2.5 flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+        兼職服務模式與 SLA 交付承諾
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div class="bg-slate-50 dark:bg-slate-800/40 p-3 rounded-xl border border-slate-200/60 dark:border-slate-700/50 badge-print">
+          <div class="font-bold text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-1.5">
+            <span>⏱️</span> 服務時間與溝通
+          </div>
+          <div class="text-slate-600 dark:text-slate-400">平日晚間與週末高效開發；線上訊息於 <b>24 小時內快速回覆</b>。</div>
+        </div>
+        <div class="bg-slate-50 dark:bg-slate-800/40 p-3 rounded-xl border border-slate-200/60 dark:border-slate-700/50 badge-print">
+          <div class="font-bold text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-1.5">
+            <span>📋</span> 需求診斷與估價
+          </div>
+          <div class="text-slate-600 dark:text-slate-400">提供免費初步需求評估，1-2 天內交付規格說明與階段里程碑。</div>
+        </div>
+        <div class="bg-slate-50 dark:bg-slate-800/40 p-3 rounded-xl border border-slate-200/60 dark:border-slate-700/50 badge-print">
+          <div class="font-bold text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-1.5">
+            <span>🛡️</span> 交付與售後保固
+          </div>
+          <div class="text-slate-600 dark:text-slate-400">含完整原始碼與部署文件；享 <b>14-30 天免費 Bug 修復保固</b>。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECH STACK SECTION -->
+    <section class="avoid-break mb-5">
+      <h2 class="text-base font-bold text-slate-900 dark:text-white mb-3 flex items-center gap-2 border-l-4 border-blue-600 pl-2.5">
+        核心技術與專業能力
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+        
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-3.5 rounded-2xl card-print shadow-sm hover:border-blue-300 dark:hover:border-blue-700 transition-all">
+          <span class="font-bold text-blue-600 dark:text-blue-400 block mb-2 flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7"></path></svg>
+            API Server 開發與後端系統
+          </span>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200 dark:border-blue-800/50 px-2.5 py-1 rounded-lg badge-print font-semibold">API Server 建立</span>
+            <span class="bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200 dark:border-blue-800/50 px-2.5 py-1 rounded-lg badge-print">Python (Flask)</span>
+            <span class="bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200 dark:border-blue-800/50 px-2.5 py-1 rounded-lg badge-print font-medium">Gunicorn</span>
+            <span class="bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200 dark:border-blue-800/50 px-2.5 py-1 rounded-lg badge-print">RESTful API 設計</span>
+            <span class="bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200 dark:border-blue-800/50 px-2.5 py-1 rounded-lg badge-print">WebSocket (Flask-SocketIO)</span>
+            <span class="bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300 border border-blue-200 dark:border-blue-800/50 px-2.5 py-1 rounded-lg badge-print">Java / Perl</span>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-3.5 rounded-2xl card-print shadow-sm hover:border-emerald-300 dark:hover:border-emerald-700 transition-all">
+          <span class="font-bold text-emerald-600 dark:text-emerald-400 block mb-2 flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+            系統維運與雲端部署
+          </span>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/50 px-2.5 py-1 rounded-lg badge-print font-semibold">Linux (CentOS/Ubuntu)</span>
+            <span class="bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/50 px-2.5 py-1 rounded-lg badge-print">P2V 虛擬化系統遷移</span>
+            <span class="bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/50 px-2.5 py-1 rounded-lg badge-print">Tomcat / Apache Httpd</span>
+            <span class="bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/50 px-2.5 py-1 rounded-lg badge-print">Heroku / Vercel / Supabase</span>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-3.5 rounded-2xl card-print shadow-sm hover:border-amber-300 dark:hover:border-amber-700 transition-all">
+          <span class="font-bold text-amber-600 dark:text-amber-400 block mb-2 flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            量化金融與數據工程
+          </span>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-800/50 px-2.5 py-1 rounded-lg badge-print font-semibold">永豐金 (Shioaji) API</span>
+            <span class="bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-800/50 px-2.5 py-1 rounded-lg badge-print">策略回測引擎</span>
+            <span class="bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-800/50 px-2.5 py-1 rounded-lg badge-print">Random Forest ML</span>
+            <span class="bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-800/50 px-2.5 py-1 rounded-lg badge-print">Pandas / ETL 數據清洗</span>
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-3.5 rounded-2xl card-print shadow-sm hover:border-purple-300 dark:hover:border-purple-700 transition-all">
+          <span class="font-bold text-purple-600 dark:text-purple-400 block mb-2 flex items-center gap-1.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            自動化 Bot & AI 整合
+          </span>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="bg-purple-50 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200 dark:border-purple-800/50 px-2.5 py-1 rounded-lg badge-print font-semibold">LINE Notify / Official Bot</span>
+            <span class="bg-purple-50 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200 dark:border-purple-800/50 px-2.5 py-1 rounded-lg badge-print">Telegram / Slack Bot</span>
+            <span class="bg-purple-50 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200 dark:border-purple-800/50 px-2.5 py-1 rounded-lg badge-print">LLM AI API 串接</span>
+            <span class="bg-purple-50 text-purple-700 dark:bg-purple-950/60 dark:text-purple-300 border border-purple-200 dark:border-purple-800/50 px-2.5 py-1 rounded-lg badge-print">MCP Server 開發</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SELECTED PROJECTS WITH CAROUSEL SLIDER -->
+    <section class="mb-6">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2 border-l-4 border-blue-600 pl-2.5">
+          精選專案實績 (Selected Projects)
+        </h2>
+
+        <!-- Carousel Left / Right Navigation Controls -->
+        <div class="no-print flex items-center gap-2">
+          <span id="carouselCounter" class="text-xs font-mono font-semibold text-slate-500 dark:text-slate-400 mr-1">
+            專案 1 / 3
+          </span>
+          <button onclick="prevSlide()" class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-all cursor-pointer shadow-sm active:scale-95" title="上一個專案">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+          </button>
+          <button onclick="nextSlide()" class="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-slate-700 hover:text-blue-600 transition-all cursor-pointer shadow-sm active:scale-95" title="下一個專案">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Carousel Container -->
+      <div id="carouselContainer" class="carousel-container relative overflow-hidden rounded-2xl">
+        <!-- Carousel Track -->
+        <div id="carouselTrack" class="carousel-track flex w-full">
+          
+          <!-- SLIDE 1: PROJECT A -->
+          <div class="carousel-slide w-full shrink-0 pr-0">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-4 sm:p-5 shadow-sm card-print h-full flex flex-col justify-between">
+              <div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                  <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+                    專案 A：養生會館多分店即時排班與營運管理系統 (B2B 全端)
+                  </h3>
+                  <span class="text-xs font-mono font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded border border-blue-200 dark:border-blue-800/50 w-fit">
+                    Python (Flask) / WebSocket / Line Bot
+                  </span>
+                </div>
+
+                <div class="space-y-1.5 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                  <div>
+                    <strong class="text-blue-600 dark:text-blue-400">背景與痛點：</strong> 實體會館傳統依賴紙本排班與人工派單，導致櫃台與休息室資訊不同步，且月底計算服務拆帳與優惠券極度耗時。
+                  </div>
+                  <div>
+                    <strong class="text-blue-600 dark:text-blue-400">核心執行：</strong>
+                    <ul class="list-disc list-inside ml-1 space-y-1 text-slate-600 dark:text-slate-300 mt-0.5">
+                      <li>主導開發多品牌/多分店、員工權限與價目表模組，部署於 Heroku 並串接 Kamatera 資料庫。</li>
+                      <li>導入 <b>Flask-SocketIO (WebSocket)</b> 實現櫃台、休息室與包廂頁面秒級同步與即時音效提醒。</li>
+                      <li>串接 <b>LINE Notify 與 Telegram Bot</b>，完成自動化排班通知推播與員工帳號綁定。</li>
+                      <li>設計動態拆帳算術模型，自動計算顧客折扣、優惠券、員工拆帳比例與公司實收營收。</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 font-medium">
+                <span><strong>成果效益：</strong> 營運流程 100% 數位化、跨空間秒級零時差同步、每日省去數小時對帳時間。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 2: PROJECT B -->
+          <div class="carousel-slide w-full shrink-0 pr-0">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-4 sm:p-5 shadow-sm card-print h-full flex flex-col justify-between">
+              <div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                  <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                    專案 B：企業級 25+ 台核心伺服器 P2V 雲端/虛擬化遷移與服務重構
+                  </h3>
+                  <span class="text-xs font-mono font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-200 dark:border-emerald-800/50 w-fit">
+                    Linux / P2V Migration / Tomcat / Memcached
+                  </span>
+                </div>
+
+                <div class="space-y-1.5 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                  <div>
+                    <strong class="text-emerald-600 dark:text-emerald-400">背景與痛點：</strong> 20+ 台實體主機維護成本高昂，且伴隨舊服務累積與硬體老化維護隱患。
+                  </div>
+                  <div>
+                    <strong class="text-emerald-600 dark:text-emerald-400">核心執行：</strong>
+                    <ul class="list-disc list-inside ml-1 space-y-1 text-slate-600 dark:text-slate-300 mt-0.5">
+                      <li>主導 20 台正式 + 5 台測試主機 P2V 無痛遷移至 VM/雲端，與 DBA 協同完成 Oracle 基礎設施對接。</li>
+                      <li>趁遷移時進行服務重新整合與優化，盤點順利清退老舊 Web 與 Socket 服務，實現系統瘦身。</li>
+                      <li>獨立安裝調優 MariaDB 資料庫，並部署 <b>Memcached 快取服務</b> 處理高頻手機數據查詢。</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 font-medium">
+                <span><strong>成果效益：</strong> 擺脫實體機房硬體維護負擔、提升系統吞吐量、顯著降低營運管理複雜度。</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 3: PROJECT C -->
+          <div class="carousel-slide w-full shrink-0 pr-0">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-4 sm:p-5 shadow-sm card-print h-full flex flex-col justify-between">
+              <div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                  <h3 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-600"></span>
+                    專案 C：台股量化研究與策略回測系統（整合永豐金 API 與 RF 模型）
+                  </h3>
+                  <span class="text-xs font-mono font-medium text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-800/50 w-fit">
+                    Shioaji API / Scikit-learn / Backtest Engine
+                  </span>
+                </div>
+
+                <div class="space-y-1.5 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                  <div>
+                    <strong class="text-amber-600 dark:text-amber-400">背景與痛點：</strong> 人工收集數據與驗證策略耗時，傳統突破訊號勝率不一，需要量化回測與 ML 模型打分。
+                  </div>
+                  <div>
+                    <strong class="text-amber-600 dark:text-amber-400">核心執行：</strong>
+                    <ul class="list-disc list-inside ml-1 space-y-1 text-slate-600 dark:text-slate-300 mt-0.5">
+                      <li>設計自動化 ETL 與資料修復機制，維護個股歷史行情、大盤與還原因子資料庫。</li>
+                      <li>打造高度解耦的回測引擎，將買賣策略與規則模組化，精確模擬歷史持倉與績效指標對比。</li>
+                      <li>建立 <b>Random Forest (RF) 機器學習模型</b>，評估突破訊號勝率、特徵重要度與個股評分排序。</li>
+                      <li>完整封裝<b>永豐金 Shioaji API</b>（憑證驗證、行情、現股/融資券/零股委託管理）並提供 API 介面。</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 font-medium">
+                <span><strong>成果效益：</strong> 模組化架構極大化策略研發效率、數據驅動決策降低主觀偏差、API 具高客製化擴充性。</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Carousel Pagination Dots Indicator -->
+      <div class="no-print flex items-center justify-center gap-2 mt-3">
+        <button onclick="goToSlide(0)" class="carousel-dot w-2.5 h-2.5 rounded-full bg-blue-600 transition-all cursor-pointer" title="切換至專案 A"></button>
+        <button onclick="goToSlide(1)" class="carousel-dot w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700 transition-all cursor-pointer" title="切換至專案 B"></button>
+        <button onclick="goToSlide(2)" class="carousel-dot w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700 transition-all cursor-pointer" title="切換至專案 C"></button>
+      </div>
+    </section>
+
+    <!-- SERVICE WORKFLOW SECTION -->
+    <section class="avoid-break mb-5">
+      <h2 class="text-base font-bold text-slate-900 dark:text-white mb-2.5 flex items-center gap-2 border-l-4 border-blue-600 pl-2.5">
+        合作與交付流程 (Service Workflow)
+      </h2>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+        
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-3 rounded-2xl text-center card-print shadow-sm">
+          <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400 font-bold flex items-center justify-center mx-auto mb-1 text-xs">1</div>
+          <div class="font-bold text-slate-800 dark:text-slate-200 mb-0.5">需求診斷與估價</div>
+          <div class="text-slate-500 dark:text-slate-400 text-[11px]">24h 提供評估，確認規格、時程與清單。</div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-3 rounded-2xl text-center card-print shadow-sm">
+          <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400 font-bold flex items-center justify-center mx-auto mb-1 text-xs">2</div>
+          <div class="font-bold text-slate-800 dark:text-slate-200 mb-0.5">階段開發與 Demo</div>
+          <div class="text-slate-500 dark:text-slate-400 text-[11px]">採用週交付模式，提供測試環境即時驗收。</div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-3 rounded-2xl text-center card-print shadow-sm">
+          <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400 font-bold flex items-center justify-center mx-auto mb-1 text-xs">3</div>
+          <div class="font-bold text-slate-800 dark:text-slate-200 mb-0.5">驗收測試與部署</div>
+          <div class="text-slate-500 dark:text-slate-400 text-[11px]">交付完整原始碼、文件並完成伺服器架設。</div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-3 rounded-2xl text-center card-print shadow-sm">
+          <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-400 font-bold flex items-center justify-center mx-auto mb-1 text-xs">4</div>
+          <div class="font-bold text-slate-800 dark:text-slate-200 mb-0.5">保固與售後支援</div>
+          <div class="text-slate-500 dark:text-slate-400 text-[11px]">提供 14-30 天免費 Bug 修復保固服務。</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION / FOOTER -->
+    <footer class="avoid-break bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white border border-slate-800 rounded-2xl p-4 sm:p-5 text-center card-print shadow-lg relative overflow-hidden">
+      <div class="relative z-10">
+        <h3 class="text-sm sm:text-base font-bold mb-1">準備好啟動您的開發或系統維運專案了嗎？</h3>
+        <p class="text-xs text-slate-300 mb-2">歡迎透過 Email 諮詢，我將於 24 小時內為您提供免費的需求診斷與初步評估。</p>
+        <div class="inline-flex items-center gap-2 text-xs font-mono text-blue-300 bg-blue-500/20 px-3 py-1.5 rounded-lg border border-blue-400/30">
+          <span>📧 mike20179631@gmail.com</span>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- JAVASCRIPT FOR CAROUSEL & THEME TOGGLE -->
+  <script>
+    // Current Slide Index
+    let currentSlide = 0;
+    const totalSlides = 3;
+
+    function updateCarouselUI() {
+      const track = document.getElementById('carouselTrack');
+      const counter = document.getElementById('carouselCounter');
+      const dots = document.querySelectorAll('.carousel-dot');
+
+      if (track) {
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      }
+
+      if (counter) {
+        counter.textContent = `專案 ${currentSlide + 1} / ${totalSlides}`;
+      }
+
+      dots.forEach((dot, index) => {
+        if (index === currentSlide) {
+          dot.className = 'carousel-dot w-5 h-2.5 rounded-full bg-blue-600 transition-all cursor-pointer';
+        } else {
+          dot.className = 'carousel-dot w-2.5 h-2.5 rounded-full bg-slate-300 dark:bg-slate-700 transition-all cursor-pointer';
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarouselUI();
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarouselUI();
+    }
+
+    function goToSlide(index) {
+      currentSlide = index;
+      updateCarouselUI();
+    }
+
+    // Touch Swipe Support for Mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const carouselContainer = document.getElementById('carouselContainer');
+
+    if (carouselContainer) {
+      carouselContainer.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      carouselContainer.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+      }, { passive: true });
+    }
+
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 40) {
+        nextSlide();
+      }
+      if (touchEndX > touchStartX + 40) {
+        prevSlide();
+      }
+    }
+
+    // Theme toggle logic
+    function initTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+        updateThemeUI(true);
+      } else {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+        updateThemeUI(false);
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.documentElement.classList.contains('dark');
+      if (isDark) {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+        localStorage.setItem('theme', 'light');
+        updateThemeUI(false);
+      } else {
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        updateThemeUI(true);
+      }
+    }
+
+    function updateThemeUI(isDark) {
+      const icon = document.getElementById('themeIcon');
+      const text = document.getElementById('themeText');
+      if (isDark) {
+        icon.textContent = '🌙';
+        if (text) text.textContent = '切換淺色';
+      } else {
+        icon.textContent = '☀️';
+        if (text) text.textContent = '切換深色';
+      }
+    }
+
+    // Initialize Theme and Carousel on load
+    window.onload = function() {
+      initTheme();
+      updateCarouselUI();
+    };
+  </script>
+</body>
+</html>
