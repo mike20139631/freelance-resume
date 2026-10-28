@@ -31,6 +31,28 @@ git push -u origin master
 
 根目錄的 `index.html` 會在瀏覽器中自動轉導到 `information_engineering_freelance_resume.html`。之後若要改用其他版面，將新 HTML 檔案放在根目錄，並同時修改 `index.html` 的 `<meta http-equiv="refresh">` 目標及頁面中的備援連結即可，不必複製整份履歷。這是瀏覽器端轉導，網址列會顯示實際履歷檔案的網址，並非伺服器的 HTTP 301/302 轉址。
 
+## 使用自有網域
+
+若主網域（例如 `example.com`）已用於其他網站，可另用 `resume.example.com` 提供履歷，不需要更動主網域既有的 DNS 記錄。
+
+1. 在網域的 DNS 管理介面新增 CNAME 記錄：名稱填 `resume`（依業者介面，也可能需填完整的 `resume.example.com`），目標填 `mike20139631.github.io`。
+2. 到此儲存庫的 **Settings → Pages → Custom domain** 填入 `resume.example.com` 並儲存。若 GitHub 因此在遠端建立或修改 `CNAME` 檔案，繼續在本機編輯前先執行 `git pull`。
+3. 等待 DNS 與憑證設定完成，在 Pages 設定中啟用 **Enforce HTTPS**，再以 `https://resume.example.com/` 測試。
+
+如果有多個 Pages 儲存庫，每個儲存庫可以設定**不同子網域**，而 DNS CNAME 的目標可以相同：
+
+| 儲存庫 | DNS CNAME | 該儲存庫的 Custom domain |
+| --- | --- | --- |
+| `freelance-resume` | `resume` → `mike20139631.github.io` | `resume.example.com` |
+| `portfolio` | `portfolio` → `mike20139631.github.io` | `portfolio.example.com` |
+
+注意事項：
+
+- CNAME 只接受主機名稱，因此目標是 `mike20139631.github.io`，**不能**加入 `/freelance-resume` 等路徑；GitHub 會依各儲存庫設定的 Custom domain 辨識網站。
+- 同一個子網域不能同時指定給兩個 Pages 儲存庫；若該子網域已有其他 DNS 記錄，先確認沒有衝突再設定。
+- DNS CNAME 不會做網址轉導。若需要 `example.com/resume` 這種路徑，須由主網站設定轉址或反向代理；也可直接使用預設的 `https://mike20139631.github.io/freelance-resume/`。
+- 使用 GitHub Free 時，通常需要公開儲存庫才能啟用 Pages；即使方案允許私人儲存庫部署 Pages，也不要假設網站內容只有自己看得到。公開前請確認沒有機密或不想公開的個資。
+
 之後更新網頁時：
 
 ```bash
