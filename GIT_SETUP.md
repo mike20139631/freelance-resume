@@ -1,6 +1,6 @@
 # Git 初始化與 GitHub Pages 發布
 
-`information_engineering_freelance_resume.html` 是靜態網頁：不需要後端或建置流程，可部署到 GitHub Pages。深色模式使用瀏覽器的 `localStorage`，不需要伺服器。不過頁面透過 CDN 載入 Tailwind CSS 與 Google Fonts，訪客需要能連上這些服務才能看到完整樣式與字型。
+首頁使用的 `freelance_resume_studio.html` 是靜態網頁：不需要後端或建置流程，可部署到 GitHub Pages。閱讀對象切換和深色模式都在瀏覽器端運作，不需要伺服器。它的樣式寫在頁面內，但字型由 Google Fonts 載入；若無法連上字型服務，瀏覽器會使用備援字型。`freelance_resume.html` 保留作為另一個版面（使用 Tailwind CSS CDN），`information_engineering_freelance_resume.html` 則保留作為原版。
 
 ## 初始化並上傳
 
@@ -29,7 +29,7 @@ git push -u origin master
 
    `https://<你的帳號>.github.io/<儲存庫名稱>/`
 
-根目錄的 `index.html` 會在瀏覽器中自動轉導到 `information_engineering_freelance_resume.html`。之後若要改用其他版面，將新 HTML 檔案放在根目錄，並同時修改 `index.html` 的 `<meta http-equiv="refresh">` 目標及頁面中的備援連結即可，不必複製整份履歷。這是瀏覽器端轉導，網址列會顯示實際履歷檔案的網址，並非伺服器的 HTTP 301/302 轉址。
+根目錄的 `index.html` 會在瀏覽器中自動轉導到 `freelance_resume_studio.html`。之後若要改用其他版面，將新 HTML 檔案放在根目錄，並同時修改 `index.html` 的 `<meta http-equiv="refresh">` 目標及頁面中的備援連結即可，不必複製整份履歷。這是瀏覽器端轉導，網址列會顯示實際履歷檔案的網址，並非伺服器的 HTTP 301/302 轉址。
 
 ## 使用自有網域
 
